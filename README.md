@@ -2,13 +2,6 @@
 
 A simple grep-like command-line tool written in Rust that searches for text patterns in files.
 
-## Features
-
-- 🔍 Search for patterns in text files
-- 📝 Case-sensitive and case-insensitive search modes
-- ⚡ Fast and memory-efficient
-- 🎯 Simple command-line interface using `clap`
-
 ## Installation
 
 Make sure you have [Rust](https://www.rust-lang.org/tools/install) installed on your system.
