@@ -30,6 +30,10 @@ cargo run -- -q "pattern" -f poem.txt
 cargo run -- --query "pattern" --file-path poem.txt --ignore-case
 cargo run -- -q "pattern" -f poem.txt -i
 
+# Show line numbers
+cargo run -- --query "pattern" --file-path poem.txt --line-number
+cargo run -- -q "pattern" -f poem.txt -n
+
 # Get help
 cargo run -- --help
 ```
@@ -39,6 +43,7 @@ cargo run -- --help
 - `-q, --query <QUERY>` - The pattern to search for (required)
 - `-f, --file-path <FILE_PATH>` - The file to search in (required)
 - `-i, --ignore-case` - Ignore case when searching (optional, default: false)
+- `-n, --line-number` - Print line numbers with output (optional, default: false)
 
 ## Examples
 
@@ -64,6 +69,13 @@ Rust:
 $ cargo run -- -q "rust" -f poem.txt -i
 Rust:
 Trust me.
+```
+
+### With line numbers
+```bash
+$ cargo run -- -q "rust" -f poem.txt -i -n
+1:Rust:
+4:Trust me.
 ```
 
 ## Running Tests
