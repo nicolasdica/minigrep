@@ -1,6 +1,6 @@
-use std::{fs, process, error::Error};
-use minigrep::{search, search_case_insensitive};
 use clap::Parser;
+use minigrep::{search, search_case_insensitive};
+use std::{error::Error, fs, process};
 
 #[derive(Parser, Debug)]
 struct Args {
@@ -9,7 +9,7 @@ struct Args {
 
     #[arg(short, long)]
     file_path: String,
-    
+
     #[arg(short = 'n', long, default_value_t = false)]
     line_number: bool,
 
@@ -24,7 +24,6 @@ struct Config {
     ignore_case: bool,
     line_number: bool,
 }
-
 
 fn main() {
     let args_aux = Args::parse();
@@ -68,6 +67,11 @@ impl Config {
         let ignore_case = args.ignore_case.clone();
         let line_number = args.line_number.clone();
 
-        Ok(Config { query, file_path, ignore_case, line_number })
+        Ok(Config {
+            query,
+            file_path,
+            ignore_case,
+            line_number,
+        })
     }
 }
