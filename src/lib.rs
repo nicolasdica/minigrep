@@ -33,7 +33,10 @@ safe, fast, productive.
 Pick three
 Duct tape.";
 
-        assert_eq!(vec!["safe, fast, productive."], search(query, contents));
+        assert_eq!(
+            vec![(2, "safe, fast, productive.")],
+            search(query, contents)
+        );
     }
 
     fn case_insensitive() {
@@ -45,7 +48,7 @@ Pick three
 Tust me.";
 
         assert_eq!(
-            vec!["Rust:", "Trust me."],
+            vec![(1, "Rust:"), (2, "Trust me.")],
             search_case_insensitive(query, contents)
         );
     }
