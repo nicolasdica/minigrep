@@ -9,6 +9,9 @@ struct Args {
 
     #[arg(short, long)]
     file_path: String,
+    
+    #[arg(short = 'n', long, default_value_t = false)]
+    line_number: bool,
 
     #[arg(short, long, default_value_t = false)]
     ignore_case: bool,
@@ -19,6 +22,7 @@ struct Config {
     query: String,
     file_path: String,
     ignore_case: bool,
+    line_number: bool,
 }
 
 
@@ -46,8 +50,12 @@ fn run(config: Config) -> Result<(), Box<dyn Error>> {
         search(&config.query, &contents)
     };
 
-    for line in results {
-        println!("{line}");
+    for (line_num, line) in results {
+        if config.line_number {
+            println!("{}:{}", line_num, line);
+        } else {
+            println!("{}", line);
+        }
     }
 
     Ok(())
@@ -58,7 +66,8 @@ impl Config {
         let query = args.query.clone();
         let file_path = args.file_path.clone();
         let ignore_case = args.ignore_case.clone();
+        let line_number = args.line_number.clone();
 
-        Ok(Config { query, file_path, ignore_case })
+        Ok(Config { query, file_path, ignore_case, line_number })
     }
 }

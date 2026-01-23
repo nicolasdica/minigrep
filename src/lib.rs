@@ -1,28 +1,23 @@
 // We use lifetime ', because we need to tell Rust that the data returned by the search function
 // will live as long as the data passed into search function
-pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    let mut result = Vec::new();
-
-    for line in contents.lines() {
-        if line.contains(query) {
-            result.push(line);
-        }
-    }
-
-    result
+pub fn search<'a>(query: &str, contents: &'a str) -> Vec<(usize, &'a str)> {
+    contents
+        .lines()
+        .enumerate()
+        .filter(|(_i, line)| line.contains(query))
+        .map(|(i, line)| (i + 1, line))
+        .collect()
 }
 
-pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    let mut result = Vec::new();
+pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<(usize, &'a str)> {
     let query = query.to_lowercase();
 
-    for line in contents.lines() {
-        if line.to_lowercase().contains(&query) {
-            result.push(line);
-        }
-    }
-
-    result
+    contents
+        .lines()
+        .enumerate()
+        .filter(|(_i, line)| line.contains(&query))
+        .map(|(i, line)| (i + 1, line))
+        .collect()
 }
 
 #[cfg(test)]
