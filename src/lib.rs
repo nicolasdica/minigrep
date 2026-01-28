@@ -39,16 +39,17 @@ Duct tape.";
         );
     }
 
+    #[test]
     fn case_insensitive() {
         let query = "rUsT";
         let contents = "\
 Rust:
 safe, fast, productive.
 Pick three
-Tust me.";
+Trust me.";
 
         assert_eq!(
-            vec![(1, "Rust:"), (2, "Trust me.")],
+            vec![(1, "Rust:"), (4, "Trust me.")],
             search_case_insensitive(query, contents)
         );
     }
