@@ -53,4 +53,20 @@ Trust me.";
             search_case_insensitive(query, contents)
         );
     }
+
+    #[test]
+    fn line_numbers() {
+        let query = "line";
+        let contents = "\
+first line
+second
+third line
+fourth
+fifth line";
+        
+        assert_eq!(
+            vec![(1, "first line"), (3, "third line"), (5, "fifth line")],
+            search(query, contents)
+        );
+    }
 }
