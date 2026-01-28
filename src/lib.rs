@@ -15,7 +15,7 @@ pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<(usize
     contents
         .lines()
         .enumerate()
-        .filter(|(_i, line)| line.contains(&query))
+        .filter(|(_i, line)| line.to_lowercase().contains(&query))
         .map(|(i, line)| (i + 1, line))
         .collect()
 }
