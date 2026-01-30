@@ -1,5 +1,6 @@
 use clap::Parser;
 use minigrep::{search, search_case_insensitive};
+use owo_colors::OwoColorize;
 use std::{error::Error, fs, process};
 
 #[derive(Parser, Debug)]
@@ -51,9 +52,16 @@ fn run(config: Config) -> Result<(), Box<dyn Error>> {
 
     for (line_num, line) in results {
         if config.line_number {
-            println!("{}:{}", line_num, line);
+            println!(
+                "{}:{}",
+                line_num.green(),
+                line.replace(&config.query, &config.query.red().to_string())
+            );
         } else {
-            println!("{}", line);
+            println!(
+                "{}",
+                line.replace(&config.query, &config.query.red().to_string())
+            );
         }
     }
 
