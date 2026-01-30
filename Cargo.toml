@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.5.48", features = ["derive"] }
+owo-colors = "4"
 
 [profile.dev]
 opt-level = 3
