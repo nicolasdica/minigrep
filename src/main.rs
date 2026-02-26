@@ -52,16 +52,39 @@ fn run(config: Config) -> Result<(), Box<dyn Error>> {
 
     for (line_num, line) in results {
         if config.line_number {
+            let line_lowercase = &line.to_lowercase().to_string();
+            let mut matches: Vec<(usize, &str)> = line_lowercase.match_indices(&config.query.to_lowercase()).collect();
+            matches.reverse();
+
+            let mut aux = String::from(line);
+            
+            for (start, word) in matches {
+                let length = start + word.len() - 1;
+                let aux_slice = &line[start..=length];
+                aux.replace_range(start..=length, &aux_slice.red().to_string());
+            }
+
             println!(
                 "{}:{}",
                 line_num.green(),
-                line.replace(&config.query, &config.query.red().to_string())
+                aux
             );
         } else {
-            println!(
-                "{}",
-                line.replace(&config.query, &config.query.red().to_string())
-            );
+            let line_lowercase = &line.to_lowercase().to_string();
+            let mut matches: Vec<(usize, &str)> = line_lowercase
+                .match_indices(&config.query.to_lowercase())
+                .collect();
+            matches.reverse();
+
+            let mut aux = String::from(line);
+
+            for (start, word) in matches {
+                let length = start + word.len() - 1;
+                let aux_slice = &line[start..=length];
+                aux.replace_range(start..=length, &aux_slice.red().to_string());
+            }
+
+            println!("{}", aux);
         }
     }
 
